@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.oracle.tools:oracle-tools-core:1.2.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/oracle/tools/oracle-tools-core/1.2.2/oracle-tools-core-1.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/oracle/tools/oracle-tools-core/1.2.2/oracle-tools-core-1.2.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/oracle/tools/oracle-tools-core/1.2.2/oracle-tools-core-1.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

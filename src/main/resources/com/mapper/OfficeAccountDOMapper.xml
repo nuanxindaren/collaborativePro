@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.core.dao.OfficeAccountDOMapper" >
+  <resultMap id="BaseResultMap" type="com.core.pojo.account.OfficeAccountDO" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="EMP_NO" property="empNo" jdbcType="VARCHAR" />
+    <result column="CORP_NO" property="corpNo" jdbcType="VARCHAR" />
+    <result column="TEMP_LEVEL" property="tempLevel" jdbcType="VARCHAR" />
+    <result column="INS_USER_ID" property="insUserId" jdbcType="VARCHAR" />
+    <result column="INS_EMP_NO" property="insEmpNo" jdbcType="VARCHAR" />
+    <result column="INS_CORP_NO" property="insCorpNo" jdbcType="VARCHAR" />
+    <result column="INS_DATE" property="insDate" jdbcType="DATE" />
+    <result column="UPD_USER_ID" property="updUserId" jdbcType="VARCHAR" />
+    <result column="UPD_EMP_NO" property="updEmpNo" jdbcType="VARCHAR" />
+    <result column="UPD_CORP_NO" property="updCorpNo" jdbcType="VARCHAR" />
+    <result column="UPD_DATE" property="updDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT, PASSWORD, EMP_NO, CORP_NO, TEMP_LEVEL, INS_USER_ID, INS_EMP_NO, INS_CORP_NO, 
+    INS_DATE, UPD_USER_ID, UPD_EMP_NO, UPD_CORP_NO, UPD_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_OFFICE_ACCOUNT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_OFFICE_ACCOUNT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.core.pojo.account.OfficeAccountDO" >
+    insert into TB_OFFICE_ACCOUNT (ID, ACCOUNT, PASSWORD, 
+      EMP_NO, CORP_NO, TEMP_LEVEL, 
+      INS_USER_ID, INS_EMP_NO, INS_CORP_NO, 
+      INS_DATE, UPD_USER_ID, UPD_EMP_NO, 
+      UPD_CORP_NO, UPD_DATE)
+    values (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{empNo,jdbcType=VARCHAR}, #{corpNo,jdbcType=VARCHAR}, #{tempLevel,jdbcType=VARCHAR}, 
+      #{insUserId,jdbcType=VARCHAR}, #{insEmpNo,jdbcType=VARCHAR}, #{insCorpNo,jdbcType=VARCHAR}, 
+      #{insDate,jdbcType=DATE}, #{updUserId,jdbcType=VARCHAR}, #{updEmpNo,jdbcType=VARCHAR}, 
+      #{updCorpNo,jdbcType=VARCHAR}, #{updDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.core.pojo.account.OfficeAccountDO" >
+    insert into TB_OFFICE_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="empNo != null" >
+        EMP_NO,
+      </if>
+      <if test="corpNo != null" >
+        CORP_NO,
+      </if>
+      <if test="tempLevel != null" >
+        TEMP_LEVEL,
+      </if>
+      <if test="insUserId != null" >
+        INS_USER_ID,
+      </if>
+      <if test="insEmpNo != null" >
+        INS_EMP_NO,
+      </if>
+      <if test="insCorpNo != null" >
+        INS_CORP_NO,
+      </if>
+      <if test="insDate != null" >
+        INS_DATE,
+      </if>
+      <if test="updUserId != null" >
+        UPD_USER_ID,
+      </if>
+      <if test="updEmpNo != null" >
+        UPD_EMP_NO,
+      </if>
+      <if test="updCorpNo != null" >
+        UPD_CORP_NO,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="empNo != null" >
+        #{empNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corpNo != null" >
+        #{corpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tempLevel != null" >
+        #{tempLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="insUserId != null" >
+        #{insUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insEmpNo != null" >
+        #{insEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insCorpNo != null" >
+        #{insCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insDate != null" >
+        #{insDate,jdbcType=DATE},
+      </if>
+      <if test="updUserId != null" >
+        #{updUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updEmpNo != null" >
+        #{updEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updCorpNo != null" >
+        #{updCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.core.pojo.account.OfficeAccountDO" >
+    update TB_OFFICE_ACCOUNT
+    <set >
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="empNo != null" >
+        EMP_NO = #{empNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corpNo != null" >
+        CORP_NO = #{corpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tempLevel != null" >
+        TEMP_LEVEL = #{tempLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="insUserId != null" >
+        INS_USER_ID = #{insUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insEmpNo != null" >
+        INS_EMP_NO = #{insEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insCorpNo != null" >
+        INS_CORP_NO = #{insCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insDate != null" >
+        INS_DATE = #{insDate,jdbcType=DATE},
+      </if>
+      <if test="updUserId != null" >
+        UPD_USER_ID = #{updUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updEmpNo != null" >
+        UPD_EMP_NO = #{updEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updCorpNo != null" >
+        UPD_CORP_NO = #{updCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.core.pojo.account.OfficeAccountDO" >
+    update TB_OFFICE_ACCOUNT
+    set ACCOUNT = #{account,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      EMP_NO = #{empNo,jdbcType=VARCHAR},
+      CORP_NO = #{corpNo,jdbcType=VARCHAR},
+      TEMP_LEVEL = #{tempLevel,jdbcType=VARCHAR},
+      INS_USER_ID = #{insUserId,jdbcType=VARCHAR},
+      INS_EMP_NO = #{insEmpNo,jdbcType=VARCHAR},
+      INS_CORP_NO = #{insCorpNo,jdbcType=VARCHAR},
+      INS_DATE = #{insDate,jdbcType=DATE},
+      UPD_USER_ID = #{updUserId,jdbcType=VARCHAR},
+      UPD_EMP_NO = #{updEmpNo,jdbcType=VARCHAR},
+      UPD_CORP_NO = #{updCorpNo,jdbcType=VARCHAR},
+      UPD_DATE = #{updDate,jdbcType=DATE}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

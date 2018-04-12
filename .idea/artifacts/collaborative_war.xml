@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="collaborative:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/collaborative_war</output-path>
+    <root id="archive" name="collaborative_war.war">
+      <element id="artifact" artifact-name="collaborative:war exploded" />
+    </root>
+  </artifact>
+</component>

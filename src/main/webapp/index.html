@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>团队协作系统</title>
+    <!-- Bootstrap core CSS-->
+    <link href="/common/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/common/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="/common/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/common/Buttons-1.5.1/Buttons-1.5.1/css/buttons.dataTables.css" rel="stylesheet">
+
+    <!--<link href="/common/datatables/jquery.dataTables.css" rel="stylesheet">-->
+    <!-- Custom styles for this template-->
+    <link href="/common/css/coll-admin.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">Team collaboration</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <!--左侧二级菜单栏-->
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="">
+
+            </li>
+            <!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="查看个人工作报告">
+                <a class="nav-link" href="javascript:void(0);">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">个人报告记录</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="工作周报">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion" aria-expanded="false">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">工作周报</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                    <li>
+                        <a href="javascript:void(0);" onclick="test('/common/html/report/addReport.html');">提交本周报告</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="test('/common/html/report/checkReport.html')" >查看员工周报</a>
+                    </li>
+                </ul>
+            </li>-->
+        </ul>
+        <!--左侧底部收放按钮-->
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+        <!--顶部菜单栏-->
+        <ul class="navbar-nav ml-auto" style="margin-left: inherit!important;">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">工作报告</a>
+            </li>
+        </ul>
+        <!--顶部提示+操作-->
+        <ul class="navbar-nav ml-auto">
+            <!--<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-bell"></i>
+            <span class="d-lg-none">Alerts
+              <span class="badge badge-pill badge-warning">6 New</span>
+            </span>
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">New Alerts:</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-danger">
+                <strong>
+                    <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#">View all alerts</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+              </span>
+                    </div>
+                </form>
+            </li>-->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="content-wrapper" id="contentWrapper">
+    <!--<#include "" />-->
+    <iframe src="/common/html/report/listReport.html" id="childFrame" name="iframeName" scrolling = "yes" width="100%" style="min-height: calc(100vh - 150px);" frameborder = "0"></iframe>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © HMIT 2018</small>
+            </div>
+        </div>
+    </footer>
+    <!-- 返回顶部按钮-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- 确认是否退出-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">确认退出?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">点击退出，将会注销您的账户信息。</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">关闭</button>
+                    <a class="btn btn-primary" href="javascript:void(0)" onclick="goOut(); ">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="ThisModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+        <div class="modal-dialog" role="document" style="width: 800px!important; max-width: none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">确认退出?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="myModalBody">
+
+                </div>
+                <div class="modal-footer" id="myModalFooter">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+       <!-- <div class="modal-dialog" role="document" style="width: 800px!important; max-width: none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">确认退出?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="myModalBody">点击退出，将会注销您的账户信息。</div>
+                <div class="modal-footer" id="myModalFooter">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">关闭</button>
+                    <a class="btn btn-primary" href="login.html">退出</a>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="/common/js/jquery-3.3.1.min.js"></script>
+<script src="/common/js/vue.min.js"></script>
+<script src="/common/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="/common/jquery-easing/jquery.easing.min.js"></script>
+<!-- Page level plugin JavaScript-->
+<script src="/common/chart.js/Chart.min.js"></script>
+<script src="/common/datatables/jquery.dataTables.js"></script>
+<script src="/common/datatables/dataTables.bootstrap4.js"></script>
+<script src="/common/Buttons-1.5.1/Buttons-1.5.1/js/dataTables.buttons.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="/common/js/coll-admin.js"></script>
+<!-- Custom scripts for this page-->
+<!--<script src="/common/js/coll-admin-datatables.js"></script>
+<script src="/common/js/coll-admin-charts.js"></script>-->
+<script src="/common/js/date.js"></script>
+</body>
+<script>
+    var contentWrapper = new Vue({
+        el: '#contentWrapper',
+        data: {
+            includeUrl:'/common/html/report/listReport.html'
+        },
+        mounted:function(){
+            $.ajax({
+                url:"/menu/listMenuById.shtml",
+                type:"post",
+                success:function(data){
+                    /*-----------------第一层迭代-------------------------*/
+                    console.log(data.menuList)
+                    var html = "";
+                    $(data.menuList).each(function(index,items){
+                        $(items.listMenu_Permissions).each(function(indexs,items){
+                            if(items.parent_id == '0'){
+                                if (items.per_url !="#" && items.per_url != null){
+                                    html +="<li class='nav-item'  data-toggle='tooltip' data-placement='right' >" +
+                                    "<a class='nav-link' href='javascript:void(0);' onclick='test("+'"'+items.per_url+'"'+");'><i class='"+items.icon_url+"'></i><span class='nav-link-text'>"+items.per_name+"</span></a></li>";
+                                } else {
+                                    html += "" +
+                                    "<li class='nav-item' data-toggle='tooltip' data-placement='right'>" +
+                                    "<a class='nav-link nav-link-collapse collapsed' data-toggle='collapse' href='#parentId"+items.role_id+"'data-parent='#exampleAccordion' aria-expanded='false'>" +
+                                    "<i class='"+items.icon_url+"'></i>" +
+                                    "<span class='nav-link-text'>"+items.per_name+"</span>" +
+                                    "</a>" +
+                                    "<ul class='sidenav-second-level collapse' id = 'parentId"+items.role_id+"'>" +
+                                    "</ul>" +
+                                    "</li>";
+                                }
+                            }
+                        })
+                    })
+                    $("#exampleAccordion").html(html)
+                    /*------------------第一层迭代结束-------下层迭代开始----------------*/
+                    $(data.menuList).each(function(index,items){
+                        $(items.listMenu_Permissions).each(function(indexs,items){
+                            if(items.parent_id != '0') {
+                                if (items.per_url !="#" && items.per_url != null) {
+                                    $("#parentId" + items.parent_id + "").append("" +
+                                    "<li>" +
+                                    "<a href='javascript:void(0);' onclick='test("+'"'+items.per_url+'"'+");'><i class='" + items.icon_url + "'></i><span>" + items.per_name + "</span></a>" +
+                                    "</li>" +
+                                    "")
+                                } else {
+                                    $("#parentId" + items.parent_id + "").append("" +
+                                    "<li class='nav-item' data-toggle='tooltip' data-placement='right'>" +
+                                    "<a class='nav-link nav-link-collapse collapsed' href='#parentId"+items.role_id+"' data-parent='#parentId" + items.parent_id + "' aria-expanded='false'>" +
+                                    "<i class='"+items.icon_url+"'></i>" +
+                                    "<span class='nav-link-text'>"+items.per_name+"</span>" +
+                                    "</a>" +
+                                    "<ul class='sidenav-second-level collapse' id = 'parentId"+items.role_id+"'>" +
+                                    "</ul>" +
+                                    "</li>"+
+                                    "")
+                                }
+                            }
+                        })
+                    })
+                },
+                error:function(data){
+                    location.href = "/login.html";
+                }
+            })
+        }
+    });
+    function test(Url){/*
+        if(contentWrapper.includeUrl == Url){
+            contentWrapper.includeUrl == "";
+        }
+        contentWrapper.includeUrl = Url;*/
+        $("#childFrame").attr("src",Url);
+    }
+    function createModel(id){
+        $.ajax({
+            url:"/weekly/getReportById.shtml",
+            type:"post",
+            data:{reportId:id},
+            success:function(data){
+                var aHtml = "";
+                var bHtml = "";
+                for(var i = 0;i<data.officeDetailsDOList.length;i++){
+                    if(data.officeDetailsDOList[i].detailsComplete == "1"){
+                        aHtml += '<blockquote>'+
+                        '<p>'+data.officeDetailsDOList[i].detailsContext+'</p>'+
+                        '</blockquote>';
+                    }
+                     else if(data.officeDetailsDOList[i].detailsComplete == "2"){
+                        bHtml += '<blockquote>'+
+                        '<p>'+data.officeDetailsDOList[i].detailsContext+'</p>'+
+                        '</blockquote>';
+                    }
+                     }
+                var html = '' +
+                        '<div class="card mb-3 col-md-6" style="float: left" >'+
+                        '<div class="card-header">'+
+                        '<i class="fa fa-area-chart"></i>本周工作进度</div>'+
+                        '<div class="card-body">'+aHtml+
+                        '<blockquote id="addThisWeeklyDiv" style="display: none">'+
+                        '<div class="tools float-right">'+
+                        '<a href="javascript:void(0)" class="fa fa-remove"></a>'+
+                        '</div>'+
+                        '</blockquote>'+
+                        '</div>'+
+                        '<div class="card-footer small text-muted">Updated Now</div>'+
+                        '</div>' +
+                        '<div class="card mb-3 col-md-6" style="float: left">' +
+                        '<div class="card-header">' +
+                        '<i class="fa fa-table"></i>下周工作计划</div>' +
+                        '<div class="card-body">'+bHtml+
+                         '</div>' +
+                            '<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>' +
+                        '</div>'+
+                        '';
+                $("#myModalLabel").html("周报信息");
+                $("#myModalBody").html(html);
+                $("#myModalFooter").html("");
+                $('#ThisModel').modal('show');
+            }
+        })
+
+    }
+
+    function goOut(){
+        $.ajax({
+            url:"/login/goOut.shtml",
+            type:"post",
+            success:function(data){
+                if(data.code == "1"){
+                    location.href = "/"+"login.html";
+                }
+            }
+        })
+    }
+</script>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>团队协作系统</title>
+    <!-- Bootstrap core CSS-->
+    <link href="/common/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/common/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/common/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="/common/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/common/sweetAlert2/sweetalert2.min.css" rel="stylesheet">
+    <!--<link href="/common/datatables/jquery.dataTables.css" rel="stylesheet">-->
+    <!-- Custom styles for this template-->
+    <link href="/common/css/coll-admin.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container-fluid" id="addWeekly">
+    <!-- 操作页面：面包屑-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">工作报告</a>
+        </li>
+        <li class="breadcrumb-item active">工作周报</li>
+        <li class="breadcrumb-item active">提交本周报告</li>
+    </ol>
+    <!-- 周报-->
+    <div class="card mb-3 col-md-6" style="float: left" >
+        <div class="card-header">
+            <i class="fa fa-area-chart"></i>本周工作进度</div>
+        <div class="card-body">
+            <blockquote v-for="item in thisWeekRecord">
+               <p style="cursor:pointer" v-on:click="getThisWeekly(item.detailsContext)">{{item.detailsContext}}</p>
+            </blockquote>
+            <blockquote id="addThisWeeklyDiv" style="display: none">
+                <div class="tools float-right">
+                    <a href="javascript:void(0)" class="fa fa-remove"></a>
+                </div>
+                <textarea id="addThisWeekly" style="border: 0px; outline:none;width: 100%;overflow-y:hidden;" onpropertychange="this.style.height=this.scrollHeight + 'px'" oninput="this.style.height=this.scrollHeight + 'px'" placeholder="请填写内容" ></textarea>
+                <div class="tools float-right" style="cursor:pointer;color: #0069d9" v-on:click="setThisWeekly">
+                    <i class="fa fa-check" ></i>确认
+                </div>
+            </blockquote>
+            <span style="cursor:pointer;color: #0069d9" onclick="addThisWeekly(this)"><i class="fa fa-plus-square" style="margin-right: 10px"></i>添加任务</span>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+    <!-- 下周工作-->
+    <div class="card mb-3 col-md-6" style="float: left">
+        <div class="card-header">
+            <i class="fa fa-table"></i>下周工作计划</div>
+        <div class="card-body">
+            <blockquote v-for="(item,index) in nextWeekRecord">
+                <p style="cursor:pointer" v-on:click="getNextWeekly(item.detailsContext,index)">{{item.detailsContext}}</p>
+            </blockquote>
+            <blockquote id="addNextWeeklyDiv" style="display: none">
+                <div class="tools float-right">
+                    <a href="javascript:void(0)" class="fa fa-remove"></a>
+                </div>
+                <textarea id="addNextWeekly" style="border: 0px; outline:none;width: 100%;overflow-y:hidden;" onpropertychange="this.style.height=this.scrollHeight + 'px'" oninput="this.style.height=this.scrollHeight + 'px'" placeholder="请填写内容" ></textarea>
+                <div class="tools float-right" style="cursor:pointer;color: #0069d9" v-on:click="setNextWeekly">
+                    <i class="fa fa-check"></i>确认
+                </div>
+                <div id="updateNextWeekly" class="tools float-right" style="display: none; cursor:pointer;color: #0069d9;margin-right: 10px;" v-on:click="deleteNextWeekly">
+                    <i class="fa fa-close"></i>删除
+                </div>
+            </blockquote>
+            <span style="cursor:pointer;color: #0069d9" onclick="addNextWeekly(this)"><i class="fa fa-plus-square" style="margin-right: 10px"></i>添加任务</span>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+    <div class="form-actions"  style="clear:both;text-align: center">
+        <button type="button" style="width: 50%;" class="btn" v-on:click="submitWeekly">提交</button>
+    </div>
+</div>
+</body>
+<!-- Bootstrap core JavaScript-->
+<script src="/common/js/jquery-3.3.1.min.js"></script>
+<script src="/common/js/vue.min.js"></script>
+<script src="/common/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="/common/jquery-easing/jquery.easing.min.js"></script>
+<!-- Page level plugin JavaScript-->
+<script src="/common/chart.js/Chart.min.js"></script>
+<script src="/common/datatables/jquery.dataTables.js"></script>
+<script src="/common/datatables/dataTables.bootstrap4.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="/common/js/coll-admin.js"></script>
+<script src="/common/sweetAlert2/sweetalert2.min.js"></script>
+<script src="/common/html/report/js/addReport.js"></script>
+
+<script src="/common/js/date.js"></script>
+<script>
+    var addWeekly = new Vue({
+        el: '#addWeekly',
+        data: {
+            thisWeekRecord:[],
+            nextWeekRecord:[],
+            updateNextWeekIndex:''
+        },
+        mounted:function(){
+            this.getWeeklyData();
+        },
+        methods: {
+            getWeeklyData:function(){
+                $.ajax({
+                    url:"/weekly/getWeeklyData.shtml",
+                    type:"post",
+                    success:function(data){
+                        for(var i = 0,a = 0,b = 0;i<data.officeDetailsDOList.length;i++){
+                            console.log(data.officeDetailsDOList[i])
+                            if(data.officeDetailsDOList[i].detailsComplete == "1"){
+                                /*this.nextWeekRecord.splice(isupd, 1,false)*/
+                                /*addWeekly.thisWeekRecord[a] = data.officeDetailsDOList[i];*/
+                                Vue.set(addWeekly.thisWeekRecord, a, data.officeDetailsDOList[i])
+                                a++;
+                            }
+                            else if(data.officeDetailsDOList[i].detailsComplete == "2"){
+                                /*addWeekly.nextWeekRecord[b] = data.officeDetailsDOList[i]*/
+                                Vue.set(addWeekly.nextWeekRecord, b, data.officeDetailsDOList[i])
+                                b++;
+                            }
+                        }
+                }
+                })
+            },
+            getThisWeekly: function(event){
+                console.log(event)
+            },
+            getNextWeekly:function(detailsContext,index){
+                /**/
+                document.getElementById("updateNextWeekly").style.display="block";
+                document.getElementById("addNextWeeklyDiv").style.display="block";
+                document.getElementById("addNextWeekly").style.height="50px";
+                $("#addNextWeekly").val(detailsContext)
+                this.updateNextWeekIndex = index;
+            },
+            setThisWeekly:function(){
+                var WeekValue = $("#addThisWeekly").val();
+                if(WeekValue!=null&&WeekValue!=""){
+                    this.thisWeekRecord.push({detailsContext:WeekValue})
+                    document.getElementById("addThisWeekly").style.height="50px";
+                    $("#addThisWeekly").val("")
+                    document.getElementById("addThisWeeklyDiv").style.display="none";
+                    document.getElementById("addThisWeekly").placeholder="请填写内容";
+                }else{
+                    document.getElementById("addThisWeekly").placeholder="请确认您填入的信息是否正确？";
+                }
+            },
+            setNextWeekly:function(){
+                var WeekValue = $("#addNextWeekly").val();
+                if(WeekValue!=null&&WeekValue!=""){
+                    console.log(this.updateNextWeekIndex)
+                    var isupd = this.updateNextWeekIndex;
+                    if((isupd!=null&&isupd!="")||isupd == '0'){
+                        Vue.set(this.nextWeekRecord,isupd,{detailsContext:WeekValue})
+                        this.updateNextWeekIndex = null;
+                    }else{
+                        this.nextWeekRecord.push({detailsContext:WeekValue})
+                    }
+
+                    document.getElementById("addNextWeekly").style.height="50px";
+                    $("#addNextWeekly").val("")
+                    document.getElementById("addNextWeeklyDiv").style.display="none";
+                    document.getElementById("addNextWeekly").placeholder="请填写内容";
+                }else{
+                    document.getElementById("addNextWeekly").placeholder="请确认您填入的信息是否正确？";
+                }
+            },
+            deleteNextWeekly:function(){
+                document.getElementById("addNextWeeklyDiv").style.display="none";
+                $("#addNextWeekly").val("")
+                document.getElementById("addNextWeekly").style.height="50px";
+                document.getElementById("addNextWeekly").placeholder="请填写内容";
+                document.getElementById("updateNextWeekly").style.display="none";
+                var isupd = this.updateNextWeekIndex;
+                if((isupd!=null&&isupd!="")||isupd == '0'){
+                    this.nextWeekRecord.splice(isupd, 1)
+                    this.updateNextWeekIndex = null;
+                }
+            },
+            submitWeekly:function(){
+                var weekly = new Object();
+                weekly.thisWeek = this.thisWeekRecord;
+                weekly.nextWeek = this.nextWeekRecord;
+                /*weekly.push({thisWeek:this.thisWeekRecord,nextWeek:this.nextWeekRecord})*/
+                console.log(weekly)
+                swal({
+                    title: '确认保存？',
+                    text: '',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: '保存!',
+                    cancelButtonText: '取消'
+                }).then(function(isConfirm) {
+                    if (isConfirm === true) {
+                        $.ajax({
+                            url:"/weekly/SetWeekly.shtml",
+                            type:"post",
+                            data:JSON.stringify(weekly),
+                            contentType: "application/json",
+                            success:function(){
+                                swal(
+                                        '保存!',
+                                        '数据保存成功',
+                                        'success'
+                                );
+                            }
+                        })
+
+
+                    }
+                });
+
+            }
+        }
+    });
+    function addThisWeekly(_this){
+        document.getElementById("addThisWeeklyDiv").style.display="block";
+        document.getElementById("addThisWeekly").style.height="50px";
+        $("#addThisWeekly").val("")
+    }
+    function addNextWeekly(_this){
+        document.getElementById("updateNextWeekly").style.display="none";
+        document.getElementById("addNextWeeklyDiv").style.display="block";
+        document.getElementById("addNextWeekly").style.height="50px";
+        $("#addNextWeekly").val("")
+    }
+
+    $(".fa-remove").on('click',function(){
+        var id = $(this).parent().parent().attr("id");
+        document.getElementById(id).style.display="none";
+    })
+</script>
+</html>

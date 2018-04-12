@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.core.dao.OfficeRolePerMissionDOMapper" >
+  <resultMap id="BaseResultMap" type="com.core.pojo.account.OfficeRolePerMissionDO" >
+    <id column="USER_ROLE_ID" property="userRoleId" jdbcType="VARCHAR" />
+    <id column="PERMISSIONS_MENU_ID" property="permissionsMenuId" jdbcType="VARCHAR" />
+    <result column="PERMISSIONS_READ" property="permissionsRead" jdbcType="VARCHAR" />
+    <result column="PERMISSIONS_ADD" property="permissionsAdd" jdbcType="VARCHAR" />
+    <result column="PERMISSIONS_UPD" property="permissionsUpd" jdbcType="VARCHAR" />
+    <result column="PERMISSIONS_DEL" property="permissionsDel" jdbcType="VARCHAR" />
+    <result column="INS_USER_ID" property="insUserId" jdbcType="VARCHAR" />
+    <result column="INS_EMP_NO" property="insEmpNo" jdbcType="VARCHAR" />
+    <result column="INS_CORP_NO" property="insCorpNo" jdbcType="VARCHAR" />
+    <result column="INS_DATE" property="insDate" jdbcType="DATE" />
+    <result column="UPD_USER_ID" property="updUserId" jdbcType="VARCHAR" />
+    <result column="UPD_EMP_NO" property="updEmpNo" jdbcType="VARCHAR" />
+    <result column="UPD_CORP_NO" property="updCorpNo" jdbcType="VARCHAR" />
+    <result column="UPD_DATE" property="updDate" jdbcType="DATE" />
+    <result column="EMP_NO" property="empNo" jdbcType="VARCHAR" />
+    <result column="CORP_NO" property="corpNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ROLE_ID, PERMISSIONS_MENU_ID, PERMISSIONS_READ, PERMISSIONS_ADD, PERMISSIONS_UPD, 
+    PERMISSIONS_DEL, INS_USER_ID, INS_EMP_NO, INS_CORP_NO, INS_DATE, UPD_USER_ID, UPD_EMP_NO, 
+    UPD_CORP_NO, UPD_DATE, EMP_NO, CORP_NO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.core.pojo.account.OfficeRolePerMissionDOKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_OFFICE_ROLE_PERMISSIONS
+    where USER_ROLE_ID = #{userRoleId,jdbcType=VARCHAR}
+      and PERMISSIONS_MENU_ID = #{permissionsMenuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.core.pojo.account.OfficeRolePerMissionDOKey" >
+    delete from TB_OFFICE_ROLE_PERMISSIONS
+    where USER_ROLE_ID = #{userRoleId,jdbcType=VARCHAR}
+      and PERMISSIONS_MENU_ID = #{permissionsMenuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.core.pojo.account.OfficeRolePerMissionDO" >
+    insert into TB_OFFICE_ROLE_PERMISSIONS (USER_ROLE_ID, PERMISSIONS_MENU_ID, PERMISSIONS_READ, 
+      PERMISSIONS_ADD, PERMISSIONS_UPD, PERMISSIONS_DEL, 
+      INS_USER_ID, INS_EMP_NO, INS_CORP_NO, 
+      INS_DATE, UPD_USER_ID, UPD_EMP_NO, 
+      UPD_CORP_NO, UPD_DATE, EMP_NO, 
+      CORP_NO)
+    values (#{userRoleId,jdbcType=VARCHAR}, #{permissionsMenuId,jdbcType=VARCHAR}, #{permissionsRead,jdbcType=VARCHAR}, 
+      #{permissionsAdd,jdbcType=VARCHAR}, #{permissionsUpd,jdbcType=VARCHAR}, #{permissionsDel,jdbcType=VARCHAR}, 
+      #{insUserId,jdbcType=VARCHAR}, #{insEmpNo,jdbcType=VARCHAR}, #{insCorpNo,jdbcType=VARCHAR}, 
+      #{insDate,jdbcType=DATE}, #{updUserId,jdbcType=VARCHAR}, #{updEmpNo,jdbcType=VARCHAR}, 
+      #{updCorpNo,jdbcType=VARCHAR}, #{updDate,jdbcType=DATE}, #{empNo,jdbcType=VARCHAR}, 
+      #{corpNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.core.pojo.account.OfficeRolePerMissionDO" >
+    insert into TB_OFFICE_ROLE_PERMISSIONS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userRoleId != null" >
+        USER_ROLE_ID,
+      </if>
+      <if test="permissionsMenuId != null" >
+        PERMISSIONS_MENU_ID,
+      </if>
+      <if test="permissionsRead != null" >
+        PERMISSIONS_READ,
+      </if>
+      <if test="permissionsAdd != null" >
+        PERMISSIONS_ADD,
+      </if>
+      <if test="permissionsUpd != null" >
+        PERMISSIONS_UPD,
+      </if>
+      <if test="permissionsDel != null" >
+        PERMISSIONS_DEL,
+      </if>
+      <if test="insUserId != null" >
+        INS_USER_ID,
+      </if>
+      <if test="insEmpNo != null" >
+        INS_EMP_NO,
+      </if>
+      <if test="insCorpNo != null" >
+        INS_CORP_NO,
+      </if>
+      <if test="insDate != null" >
+        INS_DATE,
+      </if>
+      <if test="updUserId != null" >
+        UPD_USER_ID,
+      </if>
+      <if test="updEmpNo != null" >
+        UPD_EMP_NO,
+      </if>
+      <if test="updCorpNo != null" >
+        UPD_CORP_NO,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+      <if test="empNo != null" >
+        EMP_NO,
+      </if>
+      <if test="corpNo != null" >
+        CORP_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userRoleId != null" >
+        #{userRoleId,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsMenuId != null" >
+        #{permissionsMenuId,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsRead != null" >
+        #{permissionsRead,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsAdd != null" >
+        #{permissionsAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsUpd != null" >
+        #{permissionsUpd,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsDel != null" >
+        #{permissionsDel,jdbcType=VARCHAR},
+      </if>
+      <if test="insUserId != null" >
+        #{insUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insEmpNo != null" >
+        #{insEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insCorpNo != null" >
+        #{insCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insDate != null" >
+        #{insDate,jdbcType=DATE},
+      </if>
+      <if test="updUserId != null" >
+        #{updUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updEmpNo != null" >
+        #{updEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updCorpNo != null" >
+        #{updCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=DATE},
+      </if>
+      <if test="empNo != null" >
+        #{empNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corpNo != null" >
+        #{corpNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.core.pojo.account.OfficeRolePerMissionDO" >
+    update TB_OFFICE_ROLE_PERMISSIONS
+    <set >
+      <if test="permissionsRead != null" >
+        PERMISSIONS_READ = #{permissionsRead,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsAdd != null" >
+        PERMISSIONS_ADD = #{permissionsAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsUpd != null" >
+        PERMISSIONS_UPD = #{permissionsUpd,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionsDel != null" >
+        PERMISSIONS_DEL = #{permissionsDel,jdbcType=VARCHAR},
+      </if>
+      <if test="insUserId != null" >
+        INS_USER_ID = #{insUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insEmpNo != null" >
+        INS_EMP_NO = #{insEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insCorpNo != null" >
+        INS_CORP_NO = #{insCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insDate != null" >
+        INS_DATE = #{insDate,jdbcType=DATE},
+      </if>
+      <if test="updUserId != null" >
+        UPD_USER_ID = #{updUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updEmpNo != null" >
+        UPD_EMP_NO = #{updEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updCorpNo != null" >
+        UPD_CORP_NO = #{updCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=DATE},
+      </if>
+      <if test="empNo != null" >
+        EMP_NO = #{empNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corpNo != null" >
+        CORP_NO = #{corpNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ROLE_ID = #{userRoleId,jdbcType=VARCHAR}
+      and PERMISSIONS_MENU_ID = #{permissionsMenuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.core.pojo.account.OfficeRolePerMissionDO" >
+    update TB_OFFICE_ROLE_PERMISSIONS
+    set PERMISSIONS_READ = #{permissionsRead,jdbcType=VARCHAR},
+      PERMISSIONS_ADD = #{permissionsAdd,jdbcType=VARCHAR},
+      PERMISSIONS_UPD = #{permissionsUpd,jdbcType=VARCHAR},
+      PERMISSIONS_DEL = #{permissionsDel,jdbcType=VARCHAR},
+      INS_USER_ID = #{insUserId,jdbcType=VARCHAR},
+      INS_EMP_NO = #{insEmpNo,jdbcType=VARCHAR},
+      INS_CORP_NO = #{insCorpNo,jdbcType=VARCHAR},
+      INS_DATE = #{insDate,jdbcType=DATE},
+      UPD_USER_ID = #{updUserId,jdbcType=VARCHAR},
+      UPD_EMP_NO = #{updEmpNo,jdbcType=VARCHAR},
+      UPD_CORP_NO = #{updCorpNo,jdbcType=VARCHAR},
+      UPD_DATE = #{updDate,jdbcType=DATE},
+      EMP_NO = #{empNo,jdbcType=VARCHAR},
+      CORP_NO = #{corpNo,jdbcType=VARCHAR}
+    where USER_ROLE_ID = #{userRoleId,jdbcType=VARCHAR}
+      and PERMISSIONS_MENU_ID = #{permissionsMenuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

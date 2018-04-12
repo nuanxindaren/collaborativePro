@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>团队协作系统</title>
+  <!-- Bootstrap core CSS-->
+  <link href="/common/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="/common/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="/common/css/coll-admin.css" rel="stylesheet">
+</head>
+
+<body class="bg-light" style="background-image: url(/common/images/bg.8ca8122d44fc9a0f7b04.png)">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body" id="loginVue">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputAccount" v-bind:style="{color: accountColor }">{{accountMessage}}</label>
+            <input class="form-control" v-model="account" id="exampleInputAccount" type="text" placeholder="请输入帐号">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" v-bind:style="{color: passwordColor }">{{passwordMessage}}</label>
+            <input class="form-control" v-model="password" id="exampleInputPassword1" type="password" placeholder="请输入密码">
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" v-model="checked"> Remember Password</label>
+            </div>
+          </div>
+          <a class="btn btn-primary btn-block" href="javascript:void(0);" v-on:click="loginSubmit">Login</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="/common/js/jquery-3.3.1.min.js"></script>
+  <script src="/common/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="/common/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/common/js/vue.min.js"></script>
+</body>
+<script type="text/javascript">
+  var loginVue = new Vue({
+    el: '#loginVue',
+    data: {
+      account: '',
+      password:'',
+      checked:'',
+      accountMessage:'帐号',
+      accountColor:'black',
+      passwordMessage:'密码',
+      passwordColor:'black'
+    },
+    methods: {
+      loginSubmit: function(event){
+
+        var loginAccountDTO = new Object();
+        loginAccountDTO.account = loginVue.account;
+        loginAccountDTO.password = loginVue.password;
+        loginAccountDTO.rememberMe = loginVue.checked;
+
+        var storage = window.localStorage;
+        $.ajax({
+          url:"/login/submitLogin.shtml",
+          type:"post",
+          data:JSON.stringify(loginAccountDTO),
+          contentType: "application/json",
+          success: function(data){
+            if (data.code == "1"){
+                if(loginVue.checked){
+                  storage["account"] = loginVue.account;
+                  storage["password"] = loginVue.password;
+                  storage["isstorePwd"] =  "yes";
+                  storage["isautologin"] =  "yes";
+                }else
+                {
+                  storage["account"] = loginVue.account;
+                  storage["isautologin"] =  "no";
+                }
+              location.href="/index.shtml";
+            }else{
+              storage["account"] = loginVue.account;
+              storage["password"] = "";
+              storage["isautologin"] =  "no";
+              loginVue.accountMessage = "请输入正确的账号密码";
+              loginVue.accountColor = "red";
+            }
+          }
+        })
+      }
+
+    },
+    created:function(){
+    var storage = window.localStorage;
+    var getEmail = storage["account"];
+    var getPwd = storage["password"];
+    var getisstroepwd = storage["isstorePwd"];
+    var getisautologin = storage["isautologin"];
+    if("yes" == getisstroepwd)
+    {
+      if("yes" == getisautologin)
+      {
+        if(( ("" != getEmail) ||(null != getEmail)) && (("" != getPwd) ||(null != getPwd)))
+        {
+          this.account = getEmail;
+          this.password = getPwd;
+          this.checked = true;
+        }
+      }
+    }
+    }
+  })
+</script>
+</html>

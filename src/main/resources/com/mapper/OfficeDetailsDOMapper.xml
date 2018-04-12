@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.core.dao.OfficeDetailsDOMapper" >
+  <resultMap id="BaseResultMap" type="com.core.pojo.weekly.OfficeDetailsDO" >
+    <id column="DETAILS_ID" property="detailsId" jdbcType="VARCHAR" />
+    <result column="REPORT_ID" property="reportId" jdbcType="VARCHAR" />
+    <result column="DETAILS_CONTEXT" property="detailsContext" jdbcType="VARCHAR" />
+    <result column="DETAILS_COMPLETE" property="detailsComplete" jdbcType="VARCHAR" />
+    <result column="DETAILS_PRIORITY" property="detailsPriority" jdbcType="VARCHAR" />
+    <result column="DETAILS_NUMBER" property="detailsNumber" jdbcType="VARCHAR" />
+    <result column="EMP_NO" property="empNo" jdbcType="VARCHAR" />
+    <result column="CORP_NO" property="corpNo" jdbcType="VARCHAR" />
+    <result column="DETAILS_USER_ID" property="detailsUserId" jdbcType="VARCHAR" />
+    <result column="INS_EMP_NO" property="insEmpNo" jdbcType="VARCHAR" />
+    <result column="INS_CORP_NO" property="insCorpNo" jdbcType="VARCHAR" />
+    <result column="INS_USER_ID" property="insUserId" jdbcType="VARCHAR" />
+    <result column="UPD_EMP_NO" property="updEmpNo" jdbcType="VARCHAR" />
+    <result column="UPD_CORP_NO" property="updCorpNo" jdbcType="VARCHAR" />
+    <result column="UPD_USER_ID" property="updUserId" jdbcType="VARCHAR" />
+    <result column="INS_DATE" property="insDate" jdbcType="DATE" />
+    <result column="UPD_DATE" property="updDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DETAILS_ID, REPORT_ID, DETAILS_CONTEXT, DETAILS_COMPLETE, DETAILS_PRIORITY, DETAILS_NUMBER, 
+    EMP_NO, CORP_NO, DETAILS_USER_ID, INS_EMP_NO, INS_CORP_NO, INS_USER_ID, UPD_EMP_NO, 
+    UPD_CORP_NO, UPD_USER_ID, INS_DATE, UPD_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_OFFICE_DETAILS
+    where DETAILS_ID = #{detailsId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectDetailsByReportId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from TB_OFFICE_DETAILS
+    where REPORT_ID = #{reportId,jdbcType=VARCHAR}
+    ORDER BY DETAILS_COMPLETE,DETAILS_NUMBER
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_OFFICE_DETAILS
+    where DETAILS_ID = #{detailsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByReportId" parameterType="java.lang.String" >
+    delete from TB_OFFICE_DETAILS
+    where REPORT_ID = #{reportId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.core.pojo.weekly.OfficeDetailsDO" >
+    insert into TB_OFFICE_DETAILS (DETAILS_ID, REPORT_ID, DETAILS_CONTEXT, 
+      DETAILS_COMPLETE, DETAILS_PRIORITY, DETAILS_NUMBER, 
+      EMP_NO, CORP_NO, DETAILS_USER_ID, 
+      INS_EMP_NO, INS_CORP_NO, INS_USER_ID, 
+      UPD_EMP_NO, UPD_CORP_NO, UPD_USER_ID, 
+      INS_DATE, UPD_DATE)
+    values (#{detailsId,jdbcType=VARCHAR}, #{reportId,jdbcType=VARCHAR}, #{detailsContext,jdbcType=VARCHAR}, 
+      #{detailsComplete,jdbcType=VARCHAR}, #{detailsPriority,jdbcType=VARCHAR}, #{detailsNumber,jdbcType=VARCHAR}, 
+      #{empNo,jdbcType=VARCHAR}, #{corpNo,jdbcType=VARCHAR}, #{detailsUserId,jdbcType=VARCHAR}, 
+      #{insEmpNo,jdbcType=VARCHAR}, #{insCorpNo,jdbcType=VARCHAR}, #{insUserId,jdbcType=VARCHAR}, 
+      #{updEmpNo,jdbcType=VARCHAR}, #{updCorpNo,jdbcType=VARCHAR}, #{updUserId,jdbcType=VARCHAR}, 
+      #{insDate,jdbcType=DATE}, #{updDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.core.pojo.weekly.OfficeDetailsDO" >
+    insert into TB_OFFICE_DETAILS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailsId != null" >
+        DETAILS_ID,
+      </if>
+      <if test="reportId != null" >
+        REPORT_ID,
+      </if>
+      <if test="detailsContext != null" >
+        DETAILS_CONTEXT,
+      </if>
+      <if test="detailsComplete != null" >
+        DETAILS_COMPLETE,
+      </if>
+      <if test="detailsPriority != null" >
+        DETAILS_PRIORITY,
+      </if>
+      <if test="detailsNumber != null" >
+        DETAILS_NUMBER,
+      </if>
+      <if test="empNo != null" >
+        EMP_NO,
+      </if>
+      <if test="corpNo != null" >
+        CORP_NO,
+      </if>
+      <if test="detailsUserId != null" >
+        DETAILS_USER_ID,
+      </if>
+      <if test="insEmpNo != null" >
+        INS_EMP_NO,
+      </if>
+      <if test="insCorpNo != null" >
+        INS_CORP_NO,
+      </if>
+      <if test="insUserId != null" >
+        INS_USER_ID,
+      </if>
+      <if test="updEmpNo != null" >
+        UPD_EMP_NO,
+      </if>
+      <if test="updCorpNo != null" >
+        UPD_CORP_NO,
+      </if>
+      <if test="updUserId != null" >
+        UPD_USER_ID,
+      </if>
+      <if test="insDate != null" >
+        INS_DATE,
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailsId != null" >
+        #{detailsId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsContext != null" >
+        #{detailsContext,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsComplete != null" >
+        #{detailsComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsPriority != null" >
+        #{detailsPriority,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsNumber != null" >
+        #{detailsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="empNo != null" >
+        #{empNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corpNo != null" >
+        #{corpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsUserId != null" >
+        #{detailsUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insEmpNo != null" >
+        #{insEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insCorpNo != null" >
+        #{insCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insUserId != null" >
+        #{insUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updEmpNo != null" >
+        #{updEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updCorpNo != null" >
+        #{updCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUserId != null" >
+        #{updUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insDate != null" >
+        #{insDate,jdbcType=DATE},
+      </if>
+      <if test="updDate != null" >
+        #{updDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.core.pojo.weekly.OfficeDetailsDO" >
+    update TB_OFFICE_DETAILS
+    <set >
+      <if test="reportId != null" >
+        REPORT_ID = #{reportId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsContext != null" >
+        DETAILS_CONTEXT = #{detailsContext,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsComplete != null" >
+        DETAILS_COMPLETE = #{detailsComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsPriority != null" >
+        DETAILS_PRIORITY = #{detailsPriority,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsNumber != null" >
+        DETAILS_NUMBER = #{detailsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="empNo != null" >
+        EMP_NO = #{empNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corpNo != null" >
+        CORP_NO = #{corpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="detailsUserId != null" >
+        DETAILS_USER_ID = #{detailsUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insEmpNo != null" >
+        INS_EMP_NO = #{insEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insCorpNo != null" >
+        INS_CORP_NO = #{insCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insUserId != null" >
+        INS_USER_ID = #{insUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updEmpNo != null" >
+        UPD_EMP_NO = #{updEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updCorpNo != null" >
+        UPD_CORP_NO = #{updCorpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUserId != null" >
+        UPD_USER_ID = #{updUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insDate != null" >
+        INS_DATE = #{insDate,jdbcType=DATE},
+      </if>
+      <if test="updDate != null" >
+        UPD_DATE = #{updDate,jdbcType=DATE},
+      </if>
+    </set>
+    where DETAILS_ID = #{detailsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.core.pojo.weekly.OfficeDetailsDO" >
+    update TB_OFFICE_DETAILS
+    set REPORT_ID = #{reportId,jdbcType=VARCHAR},
+      DETAILS_CONTEXT = #{detailsContext,jdbcType=VARCHAR},
+      DETAILS_COMPLETE = #{detailsComplete,jdbcType=VARCHAR},
+      DETAILS_PRIORITY = #{detailsPriority,jdbcType=VARCHAR},
+      DETAILS_NUMBER = #{detailsNumber,jdbcType=VARCHAR},
+      EMP_NO = #{empNo,jdbcType=VARCHAR},
+      CORP_NO = #{corpNo,jdbcType=VARCHAR},
+      DETAILS_USER_ID = #{detailsUserId,jdbcType=VARCHAR},
+      INS_EMP_NO = #{insEmpNo,jdbcType=VARCHAR},
+      INS_CORP_NO = #{insCorpNo,jdbcType=VARCHAR},
+      INS_USER_ID = #{insUserId,jdbcType=VARCHAR},
+      UPD_EMP_NO = #{updEmpNo,jdbcType=VARCHAR},
+      UPD_CORP_NO = #{updCorpNo,jdbcType=VARCHAR},
+      UPD_USER_ID = #{updUserId,jdbcType=VARCHAR},
+      INS_DATE = #{insDate,jdbcType=DATE},
+      UPD_DATE = #{updDate,jdbcType=DATE}
+    where DETAILS_ID = #{detailsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

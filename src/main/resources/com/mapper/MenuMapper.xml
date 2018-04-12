@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.core.dao.MenuMapper">
+
+    <resultMap id="menu_role_permissionsDTO" type="com.core.pojo.account.Menu_Role_PermissionsDTO">
+        <id property="user_role_id" column="USER_ROLE_ID"/>
+        <result property="emp_no" column="EMP_NO" />
+        <result property="corp_no" column="CORP_NO" />
+        <result property="permissions_menu_id" column="PERMISSIONS_MENU_ID" />
+        <result property="permissions_read" column="PERMISSIONS_READ" />
+        <result property="permissions_add" column="PERMISSIONS_ADD" />
+        <result property="permissions_upd" column="PERMISSIONS_UPD" />
+        <result property="permissions_del" column="PERMISSIONS_DEL" />
+        <result property="ins_user_id" column="MENU_ROLE_INS_USER" />
+        <result property="ins_date" column="MENU_ROLE_INS_DATE" />
+        <result property="upd_user_id" column="MENU_ROLE_UPD_USER" />
+        <result property="upd_date" column="MENU_ROLE_UPD_DATE" />
+        <collection property="listMenu_Permissions" ofType="com.core.pojo.account.Menu_PermissionsDO">
+            <id property="per_id" column="per_id"/>
+            <result property="role_id" column="ROLE_ID" />
+            <result property="parent_id" column="PARENT_ID" />
+            <result property="per_name" column="PER_NAME" />
+            <result property="icon_url" column="ICON_URL" />
+            <result property="per_url" column="PER_URL" />
+            <result property="per_level" column="PER_LEVEL" />
+            <result property="level" column="LEVEL" />
+            <result property="ins_user_id" column="MENU_INS_USER" />
+            <result property="ins_date" column="MENU_INS_DATE" />
+            <result property="upd_user_id" column="MENU_UPD_USER" />
+            <result property="upd_date" column="MENU_UPD_DATE" />
+        </collection>
+    </resultMap>
+
+    <select id="listMenuBySessionsID" resultMap="menu_role_permissionsDTO" parameterType="string">
+        select
+        T1.USER_ROLE_ID,T1.EMP_NO,T1.CORP_NO,T1.PERMISSIONS_MENU_ID,
+        T1.PERMISSIONS_READ,T1.PERMISSIONS_ADD,T1.PERMISSIONS_UPD,T1.PERMISSIONS_DEL,
+        T1.INS_USER_ID MENU_ROLE_INS_USER,T1.INS_DATE MENU_ROLE_INS_DATE,
+        T1.UPD_USER_ID MENU_ROLE_UPD_USER,T1.UPD_DATE MENU_ROLE_UPD_DATE,
+        T2.*
+        FROM TB_OFFICE_ROLE_PERMISSIONS t1 LEFT JOIN
+        (SELECT PER_ID,ROLE_ID,PER_NAME,PARENT_ID,
+        ICON_URL,PER_URL,level,PER_LEVEL,
+        INS_USER_ID MENU_INS_USER,INS_DATE MENU_INS_DATE,
+        UPD_USER_ID MENU_UPD_USER,UPD_DATE MENU_UPD_DATE
+        FROM TB_OFFICE_MENU_PERMISSIONS
+        connect by prior PER_ID = PARENT_ID
+        start with PARENT_ID='0'
+        ORDER BY PARENT_ID, PER_LEVEL ASC
+        )
+        T2 ON T1.PERMISSIONS_MENU_ID = T2.ROLE_ID
+        WHERE T1.USER_ROLE_ID = #{id}
+    </select>
+
+</mapper>
